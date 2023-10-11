@@ -31,19 +31,35 @@ public class ServerClient {
         }
     }
 
-    public Response get(String key) {
+    public void get(String key) {
         Request request = new Request("get", key);
-        return sendRequest(request);
+        Response response =  sendRequest(request);
+        if (!Objects.equals(response.getMessage(), "")) {
+            System.out.println("Response: " + response.getMessage());
+        } else {
+            System.out.println("Error: " + response.getError());
+        }
     }
 
-    public Response set(String key, String value) {
+    public void set(String key, String value) {
         Request request = new Request("set", key, value);
-        return sendRequest(request);
+        Response response = sendRequest(request);
+        if (!Objects.equals(response.getMessage(), "")) {
+            System.out.println("Response: " + response.getMessage());
+        } else {
+            System.out.println("Error: " + response.getError());
+        }
     }
 
-    public Response put(String key, String value) {
+    public void put(String key, String value) {
         Request request = new Request("put", key, value);
-        return sendRequest(request);
+        Response response = sendRequest(request);
+
+        if (!Objects.equals(response.getMessage(), "")) {
+            System.out.println("Response: " + response.getMessage());
+        } else {
+            System.out.println("Error: " + response.getError());
+        }
     }
 
     public Socket getSocket(){
@@ -57,59 +73,24 @@ public class ServerClient {
         PrintStream out = new PrintStream(System.out);
 
         //initial set
-        Response response = client.set("one", "A");
-        if (!Objects.equals(response.getMessage(), "")) {
-            out.println("Response: " + response.getMessage());
-        } else {
-            out.println("Error: " + response.getError());
-        }
+        client.set("one", "A");
 
         //get on initial set
-        response = client.get("one");
-        if (!Objects.equals(response.getMessage(), "")) {
-            out.println("Response: " + response.getMessage());
-        } else {
-            out.println("Error: " + response.getError());
-        }
+        client.get("one");
 
         //replacing the initial set with a new value
-        response = client.put("one", "B");
-        if (!Objects.equals(response.getMessage(), "")) {
-            out.println("Response: " + response.getMessage());
-        } else {
-            out.println("Error: " + response.getError());
-        }
+        client.put("one", "B");
 
         //gets the new value from put
-        response = client.get("one");
-        if (!Objects.equals(response.getMessage(), "")) {
-            out.println("Response: " + response.getMessage());
-        } else {
-            out.println("Error: " + response.getError());
-        }
+        client.get("one");
 
         //attempts to set the same value
-       response = client.set("one", "A");
-        if (!Objects.equals(response.getMessage(), "")) {
-            out.println("Response: " + response.getMessage());
-        } else {
-            out.println("Error: " + response.getError());
-        }
+        client.set("one", "A");
 
         //attempts to change value of a key which is not present
-        response = client.put("two", "B");
-        if (!Objects.equals(response.getMessage(), "")) {
-            out.println("Response: " + response.getMessage());
-        } else {
-            out.println("Error: " + response.getError());
-        }
+        client.put("two", "B");
 
         //attempts to get value from a key not in the map
-        response = client.get("two");
-        if (!Objects.equals(response.getMessage(), "")) {
-            out.println("Response: " + response.getMessage());
-        } else {
-            out.println("Error: " + response.getError());
-        }
+        client.get("two");
     }
 }

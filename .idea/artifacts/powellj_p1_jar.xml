@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="powellj_p1:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/powellj_p1_jar</output-path>
+    <root id="archive" name="powellj_p1.jar">
+      <element id="module-output" name="powellj_p1" />
+    </root>
+  </artifact>
+</component>
