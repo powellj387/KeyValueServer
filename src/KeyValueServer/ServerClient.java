@@ -67,7 +67,7 @@ public class ServerClient {
     }
 
     public static void main(String[] args) throws IOException {
-        ServerClient client = new ServerClient("localhost", 50701);
+        ServerClient client = new ServerClient("pie.lynchburg.edu", 50701);
 
         Scanner scan = new Scanner(System.in);
         PrintStream out = new PrintStream(System.out);
